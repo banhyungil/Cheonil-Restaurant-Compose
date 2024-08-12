@@ -21,7 +21,7 @@ services:
       - cheonil
   cheonil-server:
     container_name: cheonil-server
-    image: ban/cheonil-restaurant-node
+    image: banhyungil/cheonil-restaurant-node
     restart: always
     ports:
       - 8000:8000
@@ -39,7 +39,7 @@ services:
       - cheonil
   cheonil-front:
     container_name: cheonil-front
-    image: ban/cheonil-restaurant
+    image: banhyungil/cheonil-restaurant
     ports:
       - 80:80
     depends_on:
