@@ -37,8 +37,8 @@ services:
       DB_PWD: nice2122!
     networks:
       - cheonil
-  cheonil_front:
-    container_name: cheonil_front
+  cheonil-front:
+    container_name: cheonil-front
     image: ban/cheonil-restaurant
     ports:
       - 80:80
