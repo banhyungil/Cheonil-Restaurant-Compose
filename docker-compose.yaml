@@ -1,21 +1,55 @@
-version: '3.1'
-#
+version: '1.0'
 networks:
   cheonil:
     name: cheonil
     driver: bridge
+volumes:
+  v-db:
 services:
   db:
+    container_name: db
     image: mariadb
     restart: always
     volumes:
-      - /d/docker-compose/mount:/var/lib/mysql
+      - v-db:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
     environment:
-      MARIADB_ROOT_PASSWORD: root
       MYSQL_ROOT_USER: root
-      MYSQL_DATABASE: cheonildb
-      MYSQL_ROOT_HOST: '%'
+      MARIADB_ROOT_PASSWORD: nice2122!
+      MYSQL_DATABASE: cheonil
     networks:
       - cheonil
+  cheonil-server:
+    container_name: cheonil-server
+    image: ban/cheonil-restaurant-node
+    restart: always
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      PORT: 8000
+      WS_PORT: 8100
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: cheonil
+      DB_USER: root
+      DB_PWD: nice2122!
+    networks:
+      - cheonil
+  cheonil_front:
+    container_name: cheonil_front
+    image: ban/cheonil-restaurant
+    ports:
+      - 80:80
+    depends_on:
+      - cheonil-server
+    environment:
+      - API_IP=cheonil-server
+      - API_PORT=8000
+    restart: always
+    networks:
+      - cheonil
+
+  
