@@ -8,18 +8,17 @@ services:
   db:
     container_name: db
     image: mariadb
-    restart: always
     volumes:
       - v-db:/var/lib/mysql
     ports:
       - 3307:3306
+    command: [--lc_time_names, ko_KR]
     environment:
       MYSQL_ROOT_USER: root
       MARIADB_ROOT_PASSWORD: nice2122!
       MYSQL_DATABASE: cheonil
-      LANG: en_US.UTF-8
-      LANGUAGE: en_US.UTF-8
-      LC_ALL: ko_KR.UTF-8
+      TZ: Asia/Seoul
+    restart: always
     networks:
       - cheonil
   cheonil-server:
