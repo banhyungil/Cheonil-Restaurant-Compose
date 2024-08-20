@@ -7,7 +7,7 @@ volumes:
 services:
   db:
     container_name: db
-    image: mariadb
+    image: mariadb:11.5.2
     volumes:
       - v-db:/var/lib/mysql
     ports:
